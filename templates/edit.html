@@ -1,0 +1,28 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+{% endblock %}
+
+{% block title %}Edit Movies{% endblock %}
+
+{% block content %}
+<div class="content">
+  <h1 class="heading">Movie Title: {{movie.title}}</h1>
+<!--    <p>All current movie details are displayed, if you don't want to change, renter them </p>-->
+    <p class="description"><em>All current movie details are displayed, if you don't want to change, renter them</em></p>
+
+<!--    {{ wtf.quick_form(form, novalidate=True) }}-->
+   <form action="{{url_for('edit', id=movie.id)}}" method="post" class="form" role="form" novalidate>
+          {{ form.csrf_token() }}
+
+          {{ wtf.form_field(form.rating, placeholder=movie.rating) }}
+          {{ wtf.form_field(form.review, placeholder=movie.review) }}
+         <p><input type=submit class='btn btn-warning btn-block'>
+        </form>
+  </div>
+{% endblock %}
